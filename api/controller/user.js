@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 
 const User = require('../model/user');
+const user = require('../model/user');
 
 exports.user_getAll = async (req, res, next) => {
     try {
@@ -53,8 +54,31 @@ exports.user_signup = async (req, res, next) => {
 
 exports.user_login = async (req, res, next) => {
     try {
-
+        const foundUser = await User
+            .find(
+                {
+                    userName: req.body.userName,
+                    password: req.body.password
+                })
+            .exec();
+        if (foundUser.length === 0) {
+            res.status(404).json('User not found');
+        }
+        const token = jwt.sign(
+            {
+                email: foundUser[0].email,
+                userId: foundUser[0]._id
+            },
+            process.env.JWT_KEY,
+            {
+                expiresIn: "1h"
+            }
+        );
+        res.setHeader('token', token);
+        res.status(200).json(foundUser);
     } catch (err) {
-
+        res.status(500).json({
+            error: err
+        });
     }
 }

@@ -5,8 +5,9 @@ const jwt = require('jsonwebtoken');
 
 const User = require('../model/user');
 const UserController = require('../controller/user');
+const checkAuth = require('../middleware/check-auth');
 
-router.get('/', UserController.user_getAll);
+router.get('/', checkAuth , UserController.user_getAll);
 
 router.get('/:userId', UserController.user_getOne);
 
