@@ -1,0 +1,27 @@
+{
+  "name": "chat.login-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yaritoo/chat.login-api.git"
+  },
+  "author": "yarito",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Yaritoo/chat.login-api/issues"
+  },
+  "homepage": "https://github.com/Yaritoo/chat.login-api#readme",
+  "dependencies": {
+    "body-parser": "^1.19.1",
+    "express": "^4.17.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.1.5",
+    "morgan": "^1.10.0"
+  }
+}
