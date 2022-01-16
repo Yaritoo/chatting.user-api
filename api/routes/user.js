@@ -1,15 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const mongoose = require('mongoose');
-const jwt = require('jsonwebtoken');
 
 const User = require('../model/user');
 const UserController = require('../controller/user');
 const checkAuth = require('../middleware/check-auth');
 
-router.get('/', checkAuth , UserController.user_getAll);
+router.get('/', UserController.user_getAll);
 
 router.get('/:userId', UserController.user_getOne);
+
+router.get('/users/filter', UserController.user_getFilterById);
 
 router.post('/login', UserController.user_login);
 

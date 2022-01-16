@@ -21,7 +21,9 @@
     "body-parser": "^1.19.1",
     "express": "^4.17.2",
     "jsonwebtoken": "^8.5.1",
+    "kafkajs": "^1.15.0",
     "mongoose": "^6.1.5",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "socket.io-client": "^4.4.1"
   }
 }

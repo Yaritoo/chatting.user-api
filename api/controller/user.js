@@ -2,12 +2,14 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 
 const User = require('../model/user');
-const user = require('../model/user');
 
 exports.user_getAll = async (req, res, next) => {
     try {
         let users = await User.find().exec();
-        res.status(200).json(users);
+        let response = {
+            users: users
+        };
+        res.status(200).json(response);
     } catch (err) {
         res.status(500).json({
             error: err
@@ -20,6 +22,25 @@ exports.user_getOne = async (req, res, next) => {
         let id = req.params.userId;
         let user = await User.findById(id).exec();
         res.status(200).json(user);
+    } catch (err) {
+        res.status(500).json({
+            error: err
+        });
+    }
+}
+
+exports.user_getFilterById = async (req, res, next) => {
+    try {
+        console.log(req.query.ids);
+        var ids = req.query.ids.split(',');
+        await ids.forEach((value, index) => {
+            ids[index] = mongoose.Types.ObjectId.isValid(value) ? value : null;
+        });
+        let users = await User.find({ _id: { $in: ids } });
+        let response = {
+            users: users
+        };
+        res.status(200).json(response);
     } catch (err) {
         res.status(500).json({
             error: err
