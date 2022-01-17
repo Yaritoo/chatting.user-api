@@ -8,15 +8,6 @@ const eventHandler = require('./eventbus/event-handler');
 const port = process.env.PORT || 3000;
 const server = http.createServer(app);
 
-const sendMessage = () => {
-    eventbus.producer.send({
-        topic: 'hhhh',
-        messages: [
-            { value: 'hello world' }
-        ]
-    });
-}
-
 const configSubcribeManager = () => {
     eventbus.subscribeManager['need-user'] = eventHandler.NeedUserHandler;
 }
@@ -40,3 +31,12 @@ const test = async () => {
 test();
 
 server.listen(port);
+
+exports.sendMessage = (user) => {
+    eventbus.producer.send({
+        topic: 'get-user',
+        messages: [
+            {key: user.id, value: JSON.stringify(user)}
+        ]
+    });
+}

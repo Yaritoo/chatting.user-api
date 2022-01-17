@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 
 const User = require('../model/user');
+const server = require('../../server');
 
 exports.user_getAll = async (req, res, next) => {
     try {
@@ -31,7 +32,6 @@ exports.user_getOne = async (req, res, next) => {
 
 exports.user_getFilterById = async (req, res, next) => {
     try {
-        console.log(req.query.ids);
         var ids = req.query.ids.split(',');
         await ids.forEach((value, index) => {
             ids[index] = mongoose.Types.ObjectId.isValid(value) ? value : null;
@@ -61,6 +61,7 @@ exports.user_signup = async (req, res, next) => {
             userName: req.body.userName,
             password: req.body.password
         });
+        server.sendMessage(newUser); // send to redis of message
         await newUser.save();
         res.status(201).json({
             message: 'user created',
@@ -85,6 +86,7 @@ exports.user_login = async (req, res, next) => {
         if (foundUser.length === 0) {
             res.status(404).json('User not found');
         }
+        server.sendMessage(foundUser[0]); // send to redis of message
         const token = jwt.sign(
             {
                 email: foundUser[0].email,
