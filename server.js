@@ -32,8 +32,9 @@ test();
 
 server.listen(port);
 
-exports.sendMessage = (user) => {
-    eventbus.producer.send({
+exports.sendMessage = async (user) => {
+    
+    await eventbus.producer.send({
         topic: 'get-user',
         messages: [
             {key: user.id, value: JSON.stringify(user)}

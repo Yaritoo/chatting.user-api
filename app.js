@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 
 const user = require('./api/routes/user');
 
-mongoose.connect('mongodb+srv://admin:' + process.env.MONGO_ATLAS_PW + '@chatuser.fhpjy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority');
+mongoose.connect('mongodb+srv://admin:' + 'admin' + '@chatuser.fhpjy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority');
 mongoose.Promise = global.Promise;
 
 app.use(morgan('dev)'));
@@ -23,7 +23,7 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/', user);
+app.use('/user', user);
 
 app.use((req, res, next) => {
     const error = new Error('Not found');

@@ -86,13 +86,13 @@ exports.user_login = async (req, res, next) => {
         if (foundUser.length === 0) {
             res.status(404).json('User not found');
         }
-        server.sendMessage(foundUser[0]); // send to redis of message
+        await server.sendMessage(foundUser[0]); // send to redis of message
         const token = jwt.sign(
             {
                 email: foundUser[0].email,
-                userId: foundUser[0]._id
+                userId: foundUser[0].id
             },
-            process.env.JWT_KEY,
+            'helloworld',
             {
                 expiresIn: "1h"
             }
