@@ -24,6 +24,7 @@
     "kafkajs": "^1.15.0",
     "mongoose": "^6.1.5",
     "morgan": "^1.10.0",
+    "redis": "^4.0.2",
     "socket.io-client": "^4.4.1"
   }
 }
