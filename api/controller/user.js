@@ -103,6 +103,7 @@ exports.user_login = async (req, res, next) => {
             .exec();
         if (foundUsers.length === 0) {
             res.status(404).json('User not found');
+            return;
         }
         const token = jwt.sign(
             {
